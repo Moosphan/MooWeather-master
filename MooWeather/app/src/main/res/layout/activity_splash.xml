@@ -34,7 +34,6 @@
         android:id="@+id/splash_lottie_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lottie_fileName="cycle_animation.json"
         app:lottie_autoPlay="false"
         app:lottie_loop="true"/>
 
@@ -52,9 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="#666666"
+        android:textColor="#333333"
         android:letterSpacing="0.05"
-        android:lineSpacingMultiplier="1.0"
+        android:lineSpacingMultiplier="1.4"
         android:text="@string/splash_words"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

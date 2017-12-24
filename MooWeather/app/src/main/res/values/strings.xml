@@ -2,4 +2,25 @@
     <string name="app_name">知简天气</string>
 
     <string name="splash_words">知天下,行至简.</string>
+    <string name="login_account_edit_tips">请输入手机号或邮箱</string>
+    <string name="login_password_edit_tips">请输入密码</string>
+    <string name="login_bt_login">登 录</string>
+    <string name="login_password_forget">忘记密码？</string>
+    <string name="login_register_email_edit_tips">请输入邮箱地址</string>
+    <string name="login_register_password_edit_tips">请输入6-16位密码</string>
+    <string name="login_register_bt_register">注 册</string>
+    <string name="login_register_phone">手机号注册</string>
+    <string name="login_register_phone_edit_tips">请输入手机号</string>
+    <string name="login_register_code_edit_tips">请输入验证码</string>
+    <string name="login_register_get_code">获取验证码</string>
+    <string name="login_register_no_phone">手机号不可用？</string>
+    <string name="login_register_email">邮箱注册</string>
+    <string name="login_register_zhijian_account">注册知简天气账户</string>
+    <string name="login_register_have_account">已有账号？请登录</string>
+    <string name="login_by_other_way">其他方式登录</string>
+
+    <string name="login_success">登录成功</string>
+    <string name="login_failed">登录失败</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_failed">注册失败</string>
 </resources>
