@@ -7,7 +7,7 @@ package com.moos.weather.api;
 
 public class HeFengWeatherAPI {
     //key
-    public static final String WEATHER_KEY = "90a866ed0bec4dc59463dbc29f232369";
+    public static final String HEFENG_KEY = "90a866ed0bec4dc59463dbc29f232369";
     //基地址
     public static final String ROOT_URL = "https://free-api.heweather.com";
     //获取三天的天气情况

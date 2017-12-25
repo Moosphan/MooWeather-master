@@ -31,8 +31,8 @@ public class ForecastView extends LinearLayout {
     private int[] currentGradient;
 
     private TextView weatherDescription;
-    private TextView weatherTemperature_min;
-    private TextView weatherTemperature_max;
+    private TextView weatherTemperature;
+    //private TextView weatherTemperature_max;
     private ImageView weatherImage;
 
     private ArgbEvaluator evaluator;
@@ -66,8 +66,8 @@ public class ForecastView extends LinearLayout {
 
         weatherDescription = (TextView) findViewById(R.id.weather_description);
         weatherImage = (ImageView) findViewById(R.id.weather_image);
-        weatherTemperature_min = (TextView) findViewById(R.id.weather_temperature_min);
-        weatherTemperature_max = (TextView) findViewById(R.id.weather_temperature_max);
+        weatherTemperature = (TextView) findViewById(R.id.weather_temperature);
+        //weatherTemperature_max = (TextView) findViewById(R.id.weather_temperature_max);
     }
 
     private void initGradient() {
@@ -94,14 +94,13 @@ public class ForecastView extends LinearLayout {
     }
 
     public void setForecast(Forecast forecast) {
-        Weather weather = forecast.getWeather();
+        String weather = forecast.getWeather();
         currentGradient = weatherToGradient(weather);
         if (getWidth() != 0 && getHeight() != 0) {
             initGradient();
         }
-        weatherDescription.setText(weather.getDisplayName());
-        weatherTemperature_min.setText(forecast.getMinTemperature());
-        weatherTemperature_max.setText(forecast.getMaxTemperature());
+        weatherDescription.setText(weather);
+        weatherTemperature.setText(forecast.getTemperature());
         Glide.with(getContext()).load(weatherToIcon(weather)).into(weatherImage);
         invalidate();
 
@@ -136,21 +135,22 @@ public class ForecastView extends LinearLayout {
      * @param weather
      * @return
      */
-    private int[] weatherToGradient(Weather weather) {
-        switch (weather) {
-            case PERIODIC_CLOUDS:
-                return colors(R.array.gradientPeriodicClouds);
-            case CLOUDY:
-                return colors(R.array.gradientCloudy);
-            case MOSTLY_CLOUDY:
-                return colors(R.array.gradientMostlyCloudy);
-            case PARTLY_CLOUDY:
-                return colors(R.array.gradientPartlyCloudy);
-            case CLEAR:
-                return colors(R.array.gradientClear);
-            default:
-                throw new IllegalArgumentException();
-        }
+    private int[] weatherToGradient(String weather) {
+//        switch (weather) {
+//            case "晴":
+//                return colors(R.array.gradientPeriodicClouds);
+//            case "晴转多云":
+//                return colors(R.array.gradientCloudy);
+//            case "多云":
+//                return colors(R.array.gradientMostlyCloudy);
+//            case "小雨":
+//                return colors(R.array.gradientPartlyCloudy);
+//            case "阴":
+//                return colors(R.array.gradientClear);
+//            default:
+//                throw new IllegalArgumentException();
+//        }
+        return colors(R.array.gradientClear);
     }
 
     /**
@@ -159,21 +159,22 @@ public class ForecastView extends LinearLayout {
      * @param weather
      * @return
      */
-    private int weatherToIcon(Weather weather) {
-        switch (weather) {
-            case PERIODIC_CLOUDS:
-                return R.mipmap.periodic_clouds;
-            case CLOUDY:
-                return R.mipmap.cloudy;
-            case MOSTLY_CLOUDY:
-                return R.mipmap.mostly_cloudy;
-            case PARTLY_CLOUDY:
-                return R.mipmap.partly_cloudy;
-            case CLEAR:
-                return R.mipmap.clear;
-            default:
-                throw new IllegalArgumentException();
-        }
+    private int weatherToIcon(String weather) {
+//        switch (weather) {
+//            case "晴":
+//                return R.mipmap.periodic_clouds;
+//            case "晴转多云":
+//                return R.mipmap.cloudy;
+//            case "多云":
+//                return R.mipmap.mostly_cloudy;
+//            case "小雨":
+//                return R.mipmap.partly_cloudy;
+//            case "阴":
+//                return R.mipmap.clear;
+//            default:
+//                throw new IllegalArgumentException();
+//        }
+        return R.mipmap.clear;
     }
 
     private int[] colors(@ArrayRes int res) {

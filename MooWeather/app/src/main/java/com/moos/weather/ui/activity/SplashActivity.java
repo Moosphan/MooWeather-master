@@ -82,15 +82,19 @@ public class SplashActivity extends AppCompatActivity {
      * func:开始动画
      */
     private void startAnimation(){
-        ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(imageView_center_point,"alpha",0f,1f);
-        ObjectAnimator translationAnim = ObjectAnimator.ofFloat(imageView_name,"translationX",-500f,0f);
+        ObjectAnimator alphaAnim_logo = ObjectAnimator.ofFloat(imageView_center_point,"alpha",0f,1f);
+        ObjectAnimator alphaAnim_name = ObjectAnimator.ofFloat(imageView_name,"alpha",0f,1f);
+        ObjectAnimator scaleXAnim_name = ObjectAnimator.ofFloat(imageView_name,"scaleX",0.3f,1f);
+        ObjectAnimator scaleYAnim_name = ObjectAnimator.ofFloat(imageView_name,"scaleY",0.3f,1f);
+        //ObjectAnimator translationAnim = ObjectAnimator.ofFloat(imageView_name,"translationX",-500f,0f);
         ObjectAnimator scaleXAnim = ObjectAnimator.ofFloat(imageView_outside_circle,"scaleX",0.3f,1f);
         ObjectAnimator scaleYAnim = ObjectAnimator.ofFloat(imageView_outside_circle,"scaleY",0.3f,1f);
         ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(imageView_outside_circle,"rotation",0f,360f);
 
+        alphaAnim_name.setDuration(1500);
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(scaleXAnim).with(scaleYAnim).with(rotationAnim)
-                .before(alphaAnim).with(translationAnim);
+        animatorSet.play(scaleXAnim).with(scaleYAnim).with(rotationAnim).with(alphaAnim_name)
+                .before(alphaAnim_logo).with(scaleXAnim_name).with(scaleYAnim_name);
         animatorSet.setDuration(1500);
         animatorSet.getInterpolator();
         animatorSet.start();

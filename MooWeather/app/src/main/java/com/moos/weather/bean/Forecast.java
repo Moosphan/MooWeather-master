@@ -8,15 +8,13 @@ public class Forecast {
 
     private final String cityName;
     private final int cityIcon;
-    private final String minTemperature;
-    private final String maxTemperature;
-    private final Weather weather;
+    private final String temperature;
+    private final String weather;
 
-    public Forecast(String cityName, int cityIcon, String minTemperature, String maxTemperature, Weather weather) {
+    public Forecast(String cityName, int cityIcon, String temperature,  String weather) {
         this.cityName = cityName;
         this.cityIcon = cityIcon;
-        this.minTemperature = minTemperature;
-        this.maxTemperature = maxTemperature;
+        this.temperature = temperature;
         this.weather = weather;
     }
 
@@ -28,15 +26,11 @@ public class Forecast {
         return cityIcon;
     }
 
-    public String getMinTemperature() {
-        return minTemperature;
+    public String getTemperature() {
+        return temperature;
     }
 
-    public String getMaxTemperature(){
-        return maxTemperature;
-    }
-
-    public Weather getWeather() {
+    public String getWeather() {
         return weather;
     }
 }
