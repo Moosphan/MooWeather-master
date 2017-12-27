@@ -10,12 +10,14 @@ public class Forecast {
     private final int cityIcon;
     private final String temperature;
     private final String weather;
+    private final String weatherId;//天气id
 
-    public Forecast(String cityName, int cityIcon, String temperature,  String weather) {
+    public Forecast(String cityName, int cityIcon, String temperature,  String weather, String weatherId) {
         this.cityName = cityName;
         this.cityIcon = cityIcon;
         this.temperature = temperature;
         this.weather = weather;
+        this.weatherId = weatherId;
     }
 
     public String getCityName() {
@@ -32,5 +34,9 @@ public class Forecast {
 
     public String getWeather() {
         return weather;
+    }
+
+    public String getWeatherId(){
+        return weatherId;
     }
 }

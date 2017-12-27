@@ -203,4 +203,39 @@
         <item>@color/gradientClear_c3</item>
     </array>
 
+    <array name="gradientSunnyDay">
+        <item>@color/orange</item>
+        <item>@color/gradientPartlyCloudy_c1</item>
+        <item>@color/gradientPartlyCloudy_c3</item>
+    </array>
+
+    <array name="gradientRainyDay">
+        <item>@color/gradientMostlyCloudy_c1</item>
+        <item>@color/gradientMostlyCloudy_c2</item>
+        <item>@color/alice_blue</item>
+    </array>
+
+    <array name="gradientSnowDay">
+        <item>@color/gradientMostlyCloudy_c1</item>
+        <item>@color/light_blue</item>
+        <item>@color/dodger_blue</item>
+    </array>
+
+    <array name="gradientMistDay">
+        <item>@color/old_lace</item>
+        <item>@color/dark_orange</item>
+        <item>@color/dark_gray</item>
+    </array>
+
+    <array name="gradientStrongRain">
+        <item>@color/dodger_blue</item>
+        <item>@color/gradientMostlyCloudy_c2</item>
+        <item>@color/cadet_blue</item>
+    </array>
+
+    <array name="gradientLightDay">
+        <item>@color/forest_green</item>
+        <item>@color/green_yellow</item>
+        <item>@color/light_green</item>
+    </array>
 </resources>

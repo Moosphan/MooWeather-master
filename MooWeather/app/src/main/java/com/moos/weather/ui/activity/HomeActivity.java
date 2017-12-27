@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.moos.weather.R;
+import com.moos.weather.application.MoosApplication;
 import com.moos.weather.ui.fragment.HomeFragment;
 import com.moos.weather.ui.fragment.OtherFragment;
 import com.moos.weather.ui.fragment.PersonalCenterFragment;
@@ -47,11 +48,11 @@ public class HomeActivity extends AppCompatActivity {
         //初始化第一个fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.home_fragment_container, HomeFragment.newInstance(11));
+        ft.add(R.id.home_fragment_container, HomeFragment.newInstance());
         ft.commit();
 
         //设置底部导航
-        bottomBar.addItem(new BottomBarTab(this,R.mipmap.splash_logo_sun,"首页"))
+        bottomBar.addItem(new BottomBarTab(this,R.mipmap.splash_logo_sun, MoosApplication.mapLocation.getCity()))
                  .addItem(new BottomBarTab(this,R.mipmap.splash_logo_cloud,"其他"))
                  .addItem(new BottomBarTab(this,R.mipmap.home_icon_personal_center,"个人"));
         bottomBar.getItem(SECOND).setUnreadCount(99);

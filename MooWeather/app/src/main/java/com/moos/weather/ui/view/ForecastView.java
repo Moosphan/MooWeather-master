@@ -19,7 +19,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.moos.weather.R;
 import com.moos.weather.bean.Forecast;
+import com.moos.weather.bean.JuHeWeatherKind;
 import com.moos.weather.bean.Weather;
+
+import static com.moos.weather.bean.JuHeWeatherKind.CLOUDY;
+import static com.moos.weather.bean.JuHeWeatherKind.SHOWER;
 
 /**
  * Created by yarolegovich on 08.03.2017.
@@ -95,13 +99,14 @@ public class ForecastView extends LinearLayout {
 
     public void setForecast(Forecast forecast) {
         String weather = forecast.getWeather();
-        currentGradient = weatherToGradient(weather);
+        String weatherId = forecast.getWeatherId();
+        currentGradient = weatherToGradient(weatherId);
         if (getWidth() != 0 && getHeight() != 0) {
             initGradient();
         }
         weatherDescription.setText(weather);
         weatherTemperature.setText(forecast.getTemperature());
-        Glide.with(getContext()).load(weatherToIcon(weather)).into(weatherImage);
+        Glide.with(getContext()).load(weatherToIcon(weatherId)).into(weatherImage);
         invalidate();
 
         weatherImage.animate()
@@ -115,8 +120,8 @@ public class ForecastView extends LinearLayout {
         weatherImage.setScaleX(fraction);
         weatherImage.setScaleY(fraction);
         currentGradient = mix(fraction,
-                weatherToGradient(newF.getWeather()),
-                weatherToGradient(oldF.getWeather()));
+                weatherToGradient(newF.getWeatherId()),
+                weatherToGradient(oldF.getWeatherId()));
         initGradient();
         invalidate();
     }
@@ -136,21 +141,21 @@ public class ForecastView extends LinearLayout {
      * @return
      */
     private int[] weatherToGradient(String weather) {
-//        switch (weather) {
-//            case "晴":
-//                return colors(R.array.gradientPeriodicClouds);
-//            case "晴转多云":
-//                return colors(R.array.gradientCloudy);
-//            case "多云":
-//                return colors(R.array.gradientMostlyCloudy);
-//            case "小雨":
-//                return colors(R.array.gradientPartlyCloudy);
-//            case "阴":
-//                return colors(R.array.gradientClear);
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-        return colors(R.array.gradientClear);
+        switch (weather) {
+            case JuHeWeatherKind.PARTLY_CLOUDY:
+                return colors(R.array.gradientPeriodicClouds);
+            case JuHeWeatherKind.CLOUDY:
+                return colors(R.array.gradientCloudy);
+            case JuHeWeatherKind.SHOWER:
+                return colors(R.array.gradientMostlyCloudy);
+            case JuHeWeatherKind.FROG:
+                return colors(R.array.gradientPartlyCloudy);
+            case JuHeWeatherKind.SUNNY:
+                return colors(R.array.gradientSunnyDay);
+            default:
+                //throw new IllegalArgumentException();
+                return colors(R.array.gradientMostlyCloudy);
+        }
     }
 
     /**
@@ -160,21 +165,111 @@ public class ForecastView extends LinearLayout {
      * @return
      */
     private int weatherToIcon(String weather) {
-//        switch (weather) {
-//            case "晴":
-//                return R.mipmap.periodic_clouds;
-//            case "晴转多云":
-//                return R.mipmap.cloudy;
-//            case "多云":
-//                return R.mipmap.mostly_cloudy;
-//            case "小雨":
-//                return R.mipmap.partly_cloudy;
-//            case "阴":
-//                return R.mipmap.clear;
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-        return R.mipmap.clear;
+        switch (weather) {
+            case JuHeWeatherKind.SUNNY:            //晴天.
+                return R.mipmap.clear_day;
+
+            case JuHeWeatherKind.PARTLY_CLOUDY:    //多云.
+                return R.mipmap.mostly_cloudy;
+
+            case JuHeWeatherKind.CLOUDY:           //阴天.
+                return R.mipmap.cloudy_weather;
+
+            case JuHeWeatherKind.SHOWER:           //阵雨.
+                return R.mipmap.shower_day;
+
+            case JuHeWeatherKind.THUNDERSTORMS:    //雷阵雨.
+                return R.mipmap.thunderstorm_weather;
+
+            case JuHeWeatherKind.THUNDERSTORMS_WITH_HAIL://雷阵雨伴有冰雹.
+                return R.mipmap.thunderstorm_weather;
+
+            case JuHeWeatherKind.SLEET:            //雨夹雪.
+                return R.mipmap.rain_snow;
+
+            case JuHeWeatherKind.LIGHT_RAIN:       //小雨.
+                return R.mipmap.weather_small_rain_day;
+
+            case JuHeWeatherKind.MIDDLE_RAIN:      //中雨 .
+                return R.mipmap.weather_big_rain;
+
+            case JuHeWeatherKind.HEAVY_RAIN:       //大雨 .
+                return R.mipmap.weather_big_rain;
+
+            case JuHeWeatherKind.RAINSTORM:        //暴雨.
+                return R.mipmap.strong_rainy_weather;
+
+            case JuHeWeatherKind.BIG_HEAVY_RAIN:   //大暴雨.
+                return R.mipmap.strong_rainy_weather;
+
+            case JuHeWeatherKind.SUPER_HEAVY_RAIN: //特大暴雨.(待完善)
+                return R.mipmap.strong_rainy_weather;
+
+            case JuHeWeatherKind.SNOW_SHOWER:      //阵雪.
+                return R.mipmap.weather_snows_scattered_day;
+
+            case JuHeWeatherKind.LIGHT_SNOW:       //小雪.
+                return R.mipmap.weather_snows_scattered_day;
+
+            case JuHeWeatherKind.MIDDLE_SNOW:      //中雪.
+                return R.mipmap.weather_big_snow;
+
+            case JuHeWeatherKind.BIG_SNOW:         //大雪.
+                return R.mipmap.weather_big_snow;
+
+            case JuHeWeatherKind.HEAVY_SNOW:       //暴雪.
+                return R.mipmap.strong_snow_weather;
+
+            case JuHeWeatherKind.FROG:             //雾天.
+                return R.mipmap.weather_fog;
+
+            case JuHeWeatherKind.FREEZING_RAIN:    //冻雨.
+                return R.mipmap.weather_snow_rain;
+
+            case JuHeWeatherKind.SANDSTORM:        //沙尘暴.
+                return R.mipmap.weather_mist;
+
+            case JuHeWeatherKind.RAIN_LIGHT_TO_MIDDLE://小雨转中雨. (待完善)
+                return R.mipmap.weather_small_rain_day;
+
+            case JuHeWeatherKind.RAIN_MIDDLE_TO_BIG://中雨转大雨.
+                return R.mipmap.weather_big_rain;
+
+            case JuHeWeatherKind.RAIN_BIG_TO_HEAVY: //大雨转暴雨.
+                return R.mipmap.weather_big_rain;
+
+            case JuHeWeatherKind.RAIN_HEAVY_TO_LOT: //暴雨转大暴雨
+                return R.mipmap.strong_rainy_weather;
+
+            case JuHeWeatherKind.RAIN_LOT_TO_SUPER: //大暴雨转特大暴雨
+                return R.mipmap.strong_rainy_weather;
+
+            case JuHeWeatherKind.SNOW_LIGHT_TO_MIDDLE://小雪转中雪
+                return R.mipmap.weather_snows_scattered_day;
+
+            case JuHeWeatherKind.SNOW_MIDDLE_TO_BIG:  //中雪转大雪
+                return R.mipmap.weather_big_snow;
+
+            case JuHeWeatherKind.SNOW_BIG_TO_HEAVY:   //大雪转暴雪
+                return R.mipmap.strong_snow_weather;
+
+            case JuHeWeatherKind.FLOATING_DIST:       //浮尘.
+                return R.mipmap.big_haze_weather;
+
+            case JuHeWeatherKind.YANG_SHA:            //扬沙.
+                return R.mipmap.big_haze_weather;
+
+            case JuHeWeatherKind.STRONG_SANDSTORM:    //强沙尘暴
+                return R.mipmap.partly_cloudy;
+
+            case JuHeWeatherKind.HAZE:                //霾.
+                return R.mipmap.haze_day;
+
+            default:
+                //throw new IllegalArgumentException();
+                return R.mipmap.clear;
+        }
+
     }
 
     private int[] colors(@ArrayRes int res) {
