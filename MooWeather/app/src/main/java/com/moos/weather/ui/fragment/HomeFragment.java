@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         datePicker.setAdapter(new ForecastAdapter(forecasts));
         datePicker.addOnItemChangedListener(this);
         datePicker.addScrollStateChangeListener(this);
-        datePicker.scrollToPosition(2);
+        datePicker.scrollToPosition(0);
         datePicker.setItemTransitionTimeMillis(800);
         datePicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)

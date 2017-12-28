@@ -146,8 +146,12 @@
     <color name="grass_green">#99cc33</color><!--草绿色 -->
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
+    <color name="light_orange">#f4d490</color>
 
     <color name="tab_unselect">#e9e9e9</color>
+    <color name="shoes_colortext">#e1e5ee</color>
+    <color name="shoes_colordevider">#5690BB</color>
+    <color name="shoes_signintext">#F1EEEB</color>
 
     <!--天气背景渐变色组合-->
     <color name="grayIconTint">#727272</color>
@@ -204,9 +208,9 @@
     </array>
 
     <array name="gradientSunnyDay">
-        <item>@color/orange</item>
-        <item>@color/gradientPartlyCloudy_c1</item>
         <item>@color/gradientPartlyCloudy_c3</item>
+        <item>#64aef2</item>
+        <item>#b8dde4</item>
     </array>
 
     <array name="gradientRainyDay">
@@ -222,20 +226,54 @@
     </array>
 
     <array name="gradientMistDay">
+        <item>@color/light_orange</item>
         <item>@color/old_lace</item>
-        <item>@color/dark_orange</item>
         <item>@color/dark_gray</item>
     </array>
 
     <array name="gradientStrongRain">
         <item>@color/dodger_blue</item>
+        <item>@color/steel_blue</item>
         <item>@color/gradientMostlyCloudy_c2</item>
-        <item>@color/cadet_blue</item>
     </array>
 
     <array name="gradientLightDay">
         <item>@color/forest_green</item>
         <item>@color/green_yellow</item>
         <item>@color/light_green</item>
+    </array>
+    <array name="gradientLittleRain">
+        <item>#6fbde1</item>
+        <item>#91d6ef</item>
+        <item>#b8edf4</item>
+    </array>
+    <array name="gradientRainAndSnow">
+        <item>@color/alice_blue</item>
+        <item>@color/gradientMostlyCloudy_c1</item>
+        <item>@color/gradientMostlyCloudy_c2</item>
+    </array>
+
+    <array name="gradientSnowLittleDay">
+        <item>@color/alice_blue</item>
+        <item>@color/white_smoke</item>
+        <item>@color/gray_cc</item>
+    </array>
+
+    <array name="gradientBigSnow">
+        <item>@color/light_gray</item>
+        <item>@color/alice_blue</item>
+        <item>@color/papaya_whip</item>
+    </array>
+
+    <array name="gradientFog">
+        <item>@color/light_gray</item>
+        <item>@color/alice_blue</item>
+        <item>@color/floral_white</item>
+    </array>
+
+    <array name="gradientSandstorm">
+        <item>@color/dark_gray</item>
+        <item>#ecc579</item>
+        <item>@color/floral_white</item>
     </array>
 </resources>

@@ -158,7 +158,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 //前往登陆界面
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this,ShoesLoginActivity.class);
                 startActivity(intent);
                 finish();
             }

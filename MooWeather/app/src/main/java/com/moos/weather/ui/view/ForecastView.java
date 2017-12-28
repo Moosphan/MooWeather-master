@@ -142,19 +142,108 @@ public class ForecastView extends LinearLayout {
      */
     private int[] weatherToGradient(String weather) {
         switch (weather) {
-            case JuHeWeatherKind.PARTLY_CLOUDY:
-                return colors(R.array.gradientPeriodicClouds);
-            case JuHeWeatherKind.CLOUDY:
-                return colors(R.array.gradientCloudy);
-            case JuHeWeatherKind.SHOWER:
-                return colors(R.array.gradientMostlyCloudy);
-            case JuHeWeatherKind.FROG:
-                return colors(R.array.gradientPartlyCloudy);
-            case JuHeWeatherKind.SUNNY:
+            case JuHeWeatherKind.SUNNY:            //晴天.
                 return colors(R.array.gradientSunnyDay);
+
+            case JuHeWeatherKind.PARTLY_CLOUDY:    //多云.
+                return colors(R.array.gradientMostlyCloudy);
+
+            case JuHeWeatherKind.CLOUDY:           //阴天.
+                return colors(R.array.gradientCloudy);
+
+            case JuHeWeatherKind.SHOWER:           //阵雨.
+                return colors(R.array.gradientLittleRain);
+
+            case JuHeWeatherKind.THUNDERSTORMS:    //雷阵雨.
+                return colors(R.array.gradientLittleRain);
+
+            case JuHeWeatherKind.THUNDERSTORMS_WITH_HAIL://雷阵雨伴有冰雹.
+                return colors(R.array.gradientLittleRain);
+
+            case JuHeWeatherKind.SLEET:            //雨夹雪.
+                return colors(R.array.gradientRainAndSnow);
+
+            case JuHeWeatherKind.LIGHT_RAIN:       //小雨.
+                return colors(R.array.gradientLittleRain);
+
+            case JuHeWeatherKind.MIDDLE_RAIN:      //中雨 .
+                return colors(R.array.gradientRainyDay);
+
+            case JuHeWeatherKind.HEAVY_RAIN:       //大雨 .
+                return colors(R.array.gradientRainyDay);
+
+            case JuHeWeatherKind.RAINSTORM:        //暴雨.
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.BIG_HEAVY_RAIN:   //大暴雨.
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.SUPER_HEAVY_RAIN: //特大暴雨.(待完善)
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.SNOW_SHOWER:      //阵雪.
+                return colors(R.array.gradientSnowLittleDay);
+
+            case JuHeWeatherKind.LIGHT_SNOW:       //小雪.
+                return colors(R.array.gradientSnowLittleDay);
+
+            case JuHeWeatherKind.MIDDLE_SNOW:      //中雪.
+                return colors(R.array.gradientSnowDay);
+
+            case JuHeWeatherKind.BIG_SNOW:         //大雪.
+                return colors(R.array.gradientBigSnow);
+
+            case JuHeWeatherKind.HEAVY_SNOW:       //暴雪.
+                return colors(R.array.gradientBigSnow);
+
+            case JuHeWeatherKind.FROG:             //雾天.
+                return colors(R.array.gradientFog);
+
+            case JuHeWeatherKind.FREEZING_RAIN:    //冻雨.
+                return colors(R.array.gradientRainAndSnow);
+
+            case JuHeWeatherKind.SANDSTORM:        //沙尘暴.
+                return colors(R.array.gradientMistDay);
+
+            case JuHeWeatherKind.RAIN_LIGHT_TO_MIDDLE://小雨转中雨. (待完善)
+                return colors(R.array.gradientLittleRain);
+
+            case JuHeWeatherKind.RAIN_MIDDLE_TO_BIG://中雨转大雨.
+                return colors(R.array.gradientRainyDay);
+
+            case JuHeWeatherKind.RAIN_BIG_TO_HEAVY: //大雨转暴雨.
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.RAIN_HEAVY_TO_LOT: //暴雨转大暴雨
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.RAIN_LOT_TO_SUPER: //大暴雨转特大暴雨
+                return colors(R.array.gradientStrongRain);
+
+            case JuHeWeatherKind.SNOW_LIGHT_TO_MIDDLE://小雪转中雪
+                return colors(R.array.gradientSnowLittleDay);
+
+            case JuHeWeatherKind.SNOW_MIDDLE_TO_BIG:  //中雪转大雪
+                return colors(R.array.gradientSnowDay);
+
+            case JuHeWeatherKind.SNOW_BIG_TO_HEAVY:   //大雪转暴雪
+                return colors(R.array.gradientBigSnow);
+
+            case JuHeWeatherKind.FLOATING_DIST:       //浮尘.
+                return colors(R.array.gradientMistDay);
+
+            case JuHeWeatherKind.YANG_SHA:            //扬沙.
+                return colors(R.array.gradientMistDay);
+
+            case JuHeWeatherKind.STRONG_SANDSTORM:    //强沙尘暴
+                return colors(R.array.gradientSandstorm);
+
+            case JuHeWeatherKind.HAZE:                //霾.
+                return colors(R.array.gradientFog);
+
             default:
                 //throw new IllegalArgumentException();
-                return colors(R.array.gradientMostlyCloudy);
+                return colors(R.array.gradientPartlyCloudy);
         }
     }
 
