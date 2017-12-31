@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <shape xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/listview_background_shape">
-        <stroke android:width="0dp" android:color="#00000000" />
-        <padding android:left="0dp"
-            android:top="0dp"
-            android:right="0dp"
-            android:bottom="0dp" />
-        <corners android:radius="4dp" />
-        <solid android:color="#F1EEEB" />
-
-    </shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="#F9EEEE" />
+        </shape>
+    </item>
+    <!-- 默认的状态,必须放在最后 -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="#F1EEEB" />
+        </shape>
+    </item>
+</selector>

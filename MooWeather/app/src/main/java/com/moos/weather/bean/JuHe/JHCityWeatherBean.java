@@ -1,4 +1,4 @@
-package com.moos.weather.bean;
+package com.moos.weather.bean.JuHe;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

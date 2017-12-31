@@ -56,11 +56,12 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ShoesLoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.WeatherDetailActivity"></activity>
     </application>
 
 </manifest>

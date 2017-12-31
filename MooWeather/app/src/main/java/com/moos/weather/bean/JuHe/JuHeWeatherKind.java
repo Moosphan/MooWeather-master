@@ -1,4 +1,4 @@
-package com.moos.weather.bean;
+package com.moos.weather.bean.JuHe;
 
 /**
  * Created by moos on 2017/12/26.

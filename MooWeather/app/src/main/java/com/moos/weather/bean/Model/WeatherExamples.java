@@ -1,9 +1,4 @@
-package com.moos.weather.bean;
-
-import com.moos.weather.R;
-
-import java.util.Arrays;
-import java.util.List;
+package com.moos.weather.bean.Model;
 
 /**
  * Created by moos on 2017/12/24.

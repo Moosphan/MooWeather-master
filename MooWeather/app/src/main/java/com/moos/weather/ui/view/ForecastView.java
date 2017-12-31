@@ -18,12 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.moos.weather.R;
-import com.moos.weather.bean.Forecast;
-import com.moos.weather.bean.JuHeWeatherKind;
-import com.moos.weather.bean.Weather;
-
-import static com.moos.weather.bean.JuHeWeatherKind.CLOUDY;
-import static com.moos.weather.bean.JuHeWeatherKind.SHOWER;
+import com.moos.weather.bean.Model.Forecast;
+import com.moos.weather.bean.JuHe.JuHeWeatherKind;
 
 /**
  * Created by yarolegovich on 08.03.2017.

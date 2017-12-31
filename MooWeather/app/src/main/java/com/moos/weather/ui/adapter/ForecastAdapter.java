@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.moos.weather.R;
-import com.moos.weather.bean.Forecast;
+import com.moos.weather.bean.Model.Forecast;
 
 import java.util.List;
 
