@@ -1,5 +1,11 @@
 # MooWeather-master
-This is a app about weather,simple and beautiful.
+This is a app about weather,and is designed to be simple and beautiful.
+I welcome your suggestions and feedback.Also welcome to cooperate and develop together.
+You can contact me in the following ways:
+```
+   Email:moosphon@gmail.com
+   QQ   :4674521
+```
 
 # License
 ```
