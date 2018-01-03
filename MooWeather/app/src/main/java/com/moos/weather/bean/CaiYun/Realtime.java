@@ -83,4 +83,18 @@ public class Realtime {
          return wind;
      }
 
+    @Override
+    public String toString() {
+        return "Realtime{" +
+                "status='" + status + '\'' +
+                ", temperature=" + temperature +
+                ", skycon='" + skycon + '\'' +
+                ", cloudrate=" + cloudrate +
+                ", aqi=" + aqi +
+                ", humidity=" + humidity +
+                ", pm25=" + pm25 +
+                ", precipitation=" + precipitation +
+                ", wind=" + wind +
+                '}';
+    }
 }

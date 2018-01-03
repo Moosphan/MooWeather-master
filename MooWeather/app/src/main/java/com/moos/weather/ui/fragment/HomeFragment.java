@@ -17,8 +17,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.moos.weather.R;
+import com.moos.weather.api.CaiYunWeatherAPI;
 import com.moos.weather.api.JuHeWeatherAPI;
 import com.moos.weather.application.MoosApplication;
+import com.moos.weather.bean.CaiYun.JsonRootBean;
+import com.moos.weather.bean.CaiYun.Realtime;
+import com.moos.weather.bean.CaiYun.Skycon;
+import com.moos.weather.bean.CaiYun.Temperature;
+import com.moos.weather.bean.JuHe.JuHeWeatherKind;
 import com.moos.weather.bean.Model.Forecast;
 import com.moos.weather.bean.JuHe.JHCityWeatherBean;
 import com.moos.weather.ui.adapter.ForecastAdapter;
@@ -50,6 +56,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private JHCityWeatherBean.Result.Today todayWeather;     //今日天气
     private List<JHCityWeatherBean.Result.Future> futureWeatherList;
     private JHCityWeatherBean.Result.Sk currentWeatherBean;  //当前实况天气
+
+    private JsonRootBean caiYunWeatherBean;
+    private Realtime realTimeWeather;                        //当天的实况天气
+    private List<Temperature> temperatureList;               //预报五天的温度
+    private List<Skycon> skyconList;                         //预报五天的天气
     private final int INIT_WEATHER = 110;
 
     @Bind(R.id.fragment_home_refreshLayout)
@@ -117,7 +128,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initView(){
 
-        getCurrentCityWeather(MoosApplication.mapLocation.getLongitude(),MoosApplication.mapLocation.getLatitude());
+        getWeatherByCaiYun(MoosApplication.mapLocation.getLongitude(),MoosApplication.mapLocation.getLatitude());
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -199,11 +210,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     /**
      * by moos on 2017/12/25
-     * func:通过当前位置获取天气信息
+     * func:聚合接口通过当前位置获取天气信息
      * @param lon 经度
      * @param lat 纬度
      */
-    private void getCurrentCityWeather(double lon,double lat){
+    private void getCurrentCityWeatherByJuHe(double lon,double lat){
         JSONObject jsonObject = new JSONObject();
         OkHttpUtils
                 .postString()
@@ -242,6 +253,59 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             handler.sendMessage(msg);
                         }else {
                             Log.e(TAG,cityWeatherBean.getReason());
+                        }
+
+                    }
+                });
+    }
+
+    /**
+     * by moos on 2018/01/02
+     * func:通过彩云API调取天气数据
+     * @param lon
+     * @param lat
+     */
+    private void getWeatherByCaiYun(double lon, double lat){
+        OkHttpUtils
+                .get()
+                .url(CaiYunWeatherAPI.ROOT_URL + CaiYunWeatherAPI.CAI_YUN_KEY + "/" + lon +"," + lat + CaiYunWeatherAPI.GET_WEATHER_ALL_DATA )
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("获取彩云天气信息失败=" , e.getMessage());
+                        Toast.makeText(getContext(), getString(R.string.bad_net_tip), Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        Log.e("获取彩云天气信息成功 =" , response);
+                        caiYunWeatherBean = JSONObject.parseObject(response, JsonRootBean.class);
+                        if(caiYunWeatherBean.getStatus().equals("ok")){
+
+
+                            realTimeWeather = caiYunWeatherBean.getResult().getRealtime();
+
+                            Log.e(TAG,"当前实况天气为=="+realTimeWeather.toString());
+
+                            temperatureList = caiYunWeatherBean.getResult().getDaily().getTemperature();
+                            skyconList = caiYunWeatherBean.getResult().getDaily().getSkycon();
+
+                            forecasts = new ArrayList<>();
+                            for(int i=0;i<temperatureList.size();i++){
+                                int avgTemperature = (int) temperatureList.get(i).getAvg();
+                                Forecast forecast = new Forecast(MoosApplication.mapLocation.getCity(),R.drawable.washington,String.valueOf(avgTemperature),skyconList.get(i).getValue(), JuHeWeatherKind.SUNNY);
+                                forecasts.add(forecast);
+                            }
+                            Log.e(TAG,"预报数量为=="+forecasts.size());
+
+                            //initWeatherViews();
+                            Message msg = Message.obtain(handler);
+                            msg.what = INIT_WEATHER;
+                            handler.sendMessage(msg);
+                        }else {
+                            Log.e(TAG,caiYunWeatherBean.getStatus()+caiYunWeatherBean.getApi_status());
                         }
 
                     }

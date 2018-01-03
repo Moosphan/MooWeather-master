@@ -16,8 +16,8 @@ public class Minutely {
     private String description;
     private List<Integer> probability;
     private String datasource;
-    private List<int> precipitation_2h;
-    private List<int> precipitation;
+    private List<Integer> precipitation_2h;
+    private List<Integer> precipitation;
     public void setStatus(String status) {
          this.status = status;
      }
@@ -32,10 +32,10 @@ public class Minutely {
          return description;
      }
 
-    public void setProbability(List<int> probability) {
+    public void setProbability(List<Integer> probability) {
          this.probability = probability;
      }
-     public List<int> getProbability() {
+     public List<Integer> getProbability() {
          return probability;
      }
 
@@ -46,17 +46,17 @@ public class Minutely {
          return datasource;
      }
 
-    public void setPrecipitation_2h(List<int> precipitation_2h) {
+    public void setPrecipitation_2h(List<Integer> precipitation_2h) {
          this.precipitation_2h = precipitation_2h;
      }
-     public List<int> getPrecipitation_2h() {
+     public List<Integer> getPrecipitation_2h() {
          return precipitation_2h;
      }
 
-    public void setPrecipitation(List<int> precipitation) {
+    public void setPrecipitation(List<Integer> precipitation) {
          this.precipitation = precipitation;
      }
-     public List<int> getPrecipitation() {
+     public List<Integer> getPrecipitation() {
          return precipitation;
      }
 
