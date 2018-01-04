@@ -32,7 +32,6 @@ public class ForecastView extends LinearLayout {
 
     private TextView weatherDescription;
     private TextView weatherTemperature;
-    //private TextView weatherTemperature_max;
     private ImageView weatherImage;
 
     private ArgbEvaluator evaluator;
@@ -67,7 +66,6 @@ public class ForecastView extends LinearLayout {
         weatherDescription = (TextView) findViewById(R.id.weather_description);
         weatherImage = (ImageView) findViewById(R.id.weather_image);
         weatherTemperature = (TextView) findViewById(R.id.weather_temperature);
-        //weatherTemperature_max = (TextView) findViewById(R.id.weather_temperature_max);
     }
 
     private void initGradient() {
@@ -96,13 +94,13 @@ public class ForecastView extends LinearLayout {
     public void setForecast(Forecast forecast) {
         String weather = forecast.getWeather();
         String weatherId = forecast.getWeatherId();
-        currentGradient = weatherToGradient(weatherId);
+        currentGradient = caiYunWeatherToGradient(weatherId);
         if (getWidth() != 0 && getHeight() != 0) {
             initGradient();
         }
         weatherDescription.setText(weather);
         weatherTemperature.setText(forecast.getTemperature());
-        Glide.with(getContext()).load(weatherToIcon(weatherId)).into(weatherImage);
+        Glide.with(getContext()).load(caiYunWeatherToIcon(weatherId)).into(weatherImage);
         invalidate();
 
         weatherImage.animate()
@@ -116,8 +114,8 @@ public class ForecastView extends LinearLayout {
         weatherImage.setScaleX(fraction);
         weatherImage.setScaleY(fraction);
         currentGradient = mix(fraction,
-                weatherToGradient(newF.getWeatherId()),
-                weatherToGradient(oldF.getWeatherId()));
+                caiYunWeatherToGradient(newF.getWeatherId()),
+                caiYunWeatherToGradient(oldF.getWeatherId()));
         initGradient();
         invalidate();
     }
@@ -132,7 +130,7 @@ public class ForecastView extends LinearLayout {
 
     /**
      * by moos on 2017/12/24
-     * func:设置渐变色背景
+     * func:根据聚合天气的类型设置渐变色背景
      * @param weather
      * @return
      */
@@ -245,7 +243,7 @@ public class ForecastView extends LinearLayout {
 
     /**
      * by moos on 2017/12/24
-     * func：设置天气的icon
+     * func：根据聚合天气的天气类型设置天气的icon
      * @param weather
      * @return
      */
@@ -348,6 +346,103 @@ public class ForecastView extends LinearLayout {
                 return R.mipmap.partly_cloudy;
 
             case JuHeWeatherKind.HAZE:                //霾.
+                return R.mipmap.haze_day;
+
+            default:
+                //throw new IllegalArgumentException();
+                return R.mipmap.clear;
+        }
+
+    }
+
+    /**
+     * by moos on 2018/01/04
+     * func:根据彩云天气的类型设置渐变色背景
+     * @param weather
+     * @return
+     */
+    private int[] caiYunWeatherToGradient(String weather) {
+        switch (weather) {
+            case "CLEAR_DAY":                        //晴天.
+                return colors(R.array.gradientSunnyDay);
+
+            case "CLEAR_NIGHT":                      //晴天(night).
+                return colors(R.array.gradientSunnyDay);
+
+            case "PARTLY_CLOUDY_DAY":                //多云.
+                return colors(R.array.gradientPartlyCloudy);
+
+            case "PARTLY_CLOUDY_NIGHT":              //多云(night).
+                return colors(R.array.gradientCloudy);
+
+            case "CLOUDY":                           //阴天
+                return colors(R.array.gradientCloudy);
+
+            case "RAIN":                             //雨 .
+                return colors(R.array.gradientRainyDay);
+
+            case "SNOW":                             //雪.
+                return colors(R.array.gradientSnowDay);
+
+            case "FOG":                              //雾天.
+                return colors(R.array.gradientFog);
+
+
+            case "WIND":                             //风.
+                return colors(R.array.gradientMistDay);
+
+
+            case "SLEET":                            //冻雨.
+                return colors(R.array.gradientRainAndSnow);
+
+            case "HAZE":                             //霾.
+                return colors(R.array.gradientFog);
+
+            default:
+                //throw new IllegalArgumentException();
+                return colors(R.array.gradientPartlyCloudy);
+        }
+    }
+
+    /**
+     * by moos on 2018/01/04
+     * func：根据彩云天气的天气类型设置天气的icon
+     * @param weather
+     * @return
+     */
+    private int caiYunWeatherToIcon(String weather) {
+        switch (weather) {
+            case "CLEAR_DAY":              //晴天.
+                return R.mipmap.clear_day;
+
+            case "CLEAR_NIGHT":            //晴天(NIGHT).
+                return R.mipmap.clear_day;
+
+            case "PARTLY_CLOUDY_DAY":      //多云.
+                return R.mipmap.partly_cloudy;
+
+            case "PARTLY_CLOUDY_NIGHT":    //多云(night).
+                return R.mipmap.partly_cloudy;
+
+            case "CLOUDY":                 //阴天.
+                return R.mipmap.cloudy_weather;
+
+            case "RAIN":                   //雨 .
+                return R.mipmap.weather_big_rain;
+
+            case "SNOW":                   //雪.
+                return R.mipmap.weather_big_snow;
+
+            case "FOG":                    //雾天.
+                return R.mipmap.weather_fog;
+
+            case "SLEET":                  //冻雨.
+                return R.mipmap.weather_snow_rain;
+
+            case "WIND":                   //风.
+                return R.mipmap.big_haze_weather;
+
+            case "HAZE":                   //霾.
                 return R.mipmap.haze_day;
 
             default:

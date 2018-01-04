@@ -295,7 +295,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             forecasts = new ArrayList<>();
                             for(int i=0;i<temperatureList.size();i++){
                                 int avgTemperature = (int) temperatureList.get(i).getAvg();
-                                Forecast forecast = new Forecast(MoosApplication.mapLocation.getCity(),R.drawable.washington,String.valueOf(avgTemperature),skyconList.get(i).getValue(), JuHeWeatherKind.SUNNY);
+                                Forecast forecast = new Forecast(MoosApplication.mapLocation.getCity(),R.drawable.washington,String.valueOf(avgTemperature),skyconList.get(i).getValue(), skyconList.get(i).getValue());
                                 forecasts.add(forecast);
                             }
                             Log.e(TAG,"预报数量为=="+forecasts.size());
