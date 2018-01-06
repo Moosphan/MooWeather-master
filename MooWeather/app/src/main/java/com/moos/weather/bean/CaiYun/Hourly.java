@@ -5,10 +5,8 @@ package com.moos.weather.bean.CaiYun;
 import java.util.List;
 
 /**
- * Auto-generated: 2017-12-31 14:26:10
- *
- * @author bejson.com (i@bejson.com)
- * @website http://www.bejson.com/java2pojo/
+ * by moos on 2018/01/06
+ * func:小时预报48
  */
 public class Hourly {
 

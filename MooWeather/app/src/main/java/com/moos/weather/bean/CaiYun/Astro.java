@@ -5,20 +5,18 @@ package com.moos.weather.bean.CaiYun;
 import java.util.Date;
 
 /**
- * Auto-generated: 2017-12-31 14:26:10
- *
- * @author bejson.com (i@bejson.com)
- * @website http://www.bejson.com/java2pojo/
+ * by moos on 2018/01/06
+ * func:日落日出的时间
  */
 public class Astro {
 
-    private Date date;
+    private String date;
     private Sunset sunset;
     private Sunrise sunrise;
-    public void setDate(Date date) {
+    public void setDate(String date) {
          this.date = date;
      }
-     public Date getDate() {
+     public String getDate() {
          return date;
      }
 

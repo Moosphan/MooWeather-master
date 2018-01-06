@@ -28,6 +28,7 @@ import com.moos.weather.bean.JuHe.JuHeWeatherKind;
 import com.moos.weather.bean.Model.Forecast;
 import com.moos.weather.bean.JuHe.JHCityWeatherBean;
 import com.moos.weather.ui.adapter.ForecastAdapter;
+import com.moos.weather.ui.adapter.ForecastCardAdapter;
 import com.moos.weather.ui.view.ForecastView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -48,7 +49,7 @@ import static com.moos.weather.application.MoosApplication.TAG;
  * character: code cleaner
  */
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, DiscreteScrollView.OnItemChangedListener<ForecastAdapter.ViewHolder>, DiscreteScrollView.ScrollStateChangeListener<ForecastAdapter.ViewHolder> {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, DiscreteScrollView.OnItemChangedListener<ForecastCardAdapter.BroadcastViewHolder>, DiscreteScrollView.ScrollStateChangeListener<ForecastCardAdapter.BroadcastViewHolder>,ForecastCardAdapter.OnBroadcastItemClickListener {
     private static final String ARG_PARAM1 = "param1";
 
 
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<Temperature> temperatureList;               //预报五天的温度
     private List<Skycon> skyconList;                         //预报五天的天气
     private final int INIT_WEATHER = 110;
+    private ForecastCardAdapter adapter;
 
     @Bind(R.id.fragment_home_refreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -131,9 +133,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         getWeatherByCaiYun(MoosApplication.mapLocation.getLongitude(),MoosApplication.mapLocation.getLatitude());
 
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
+        refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
+                android.R.color.holo_red_light,
+                android.R.color.holo_red_light,
                 android.R.color.holo_red_light
         );
         //初始化测试
@@ -157,31 +159,31 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void run() {
                 refreshLayout.setRefreshing(false);
             }
-        },3000);
+        },2000);
     }
 
     @Override
-    public void onCurrentItemChanged(@Nullable ForecastAdapter.ViewHolder holder, int position) {
+    public void onCurrentItemChanged(@Nullable ForecastCardAdapter.BroadcastViewHolder holder, int position) {
         if (holder != null) {
             forecastView.setForecast(forecasts.get(position));
-            holder.showText();
+            holder.setImageSelectColor();
         }
 
     }
 
     @Override
-    public void onScrollStart(@NonNull ForecastAdapter.ViewHolder holder, int adapterPosition) {
+    public void onScrollStart(@NonNull ForecastCardAdapter.BroadcastViewHolder holder, int adapterPosition) {
 
-        holder.hideText();
+        holder.setImageUnselectColor();
     }
 
     @Override
-    public void onScrollEnd(@NonNull ForecastAdapter.ViewHolder currentItemHolder, int adapterPosition) {
+    public void onScrollEnd(@NonNull ForecastCardAdapter.BroadcastViewHolder currentItemHolder, int adapterPosition) {
 
     }
 
     @Override
-    public void onScroll(float scrollPosition, int currentPosition, int newPosition, @Nullable ForecastAdapter.ViewHolder currentHolder, @Nullable ForecastAdapter.ViewHolder newCurrent) {
+    public void onScroll(float scrollPosition, int currentPosition, int newPosition, @Nullable ForecastCardAdapter.BroadcastViewHolder currentHolder, @Nullable ForecastCardAdapter.BroadcastViewHolder newCurrent) {
 
         Forecast current = forecasts.get(currentPosition);
         if (newPosition >= 0 && newPosition < datePicker.getAdapter().getItemCount()) {
@@ -196,11 +198,13 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
      */
     private void initWeatherViews(){
         datePicker.setSlideOnFling(true);
-        datePicker.setAdapter(new ForecastAdapter(forecasts));
+        adapter = new ForecastCardAdapter(caiYunWeatherBean);
+        adapter.setOnBroadcastItemClickListener(this);
+        datePicker.setAdapter(adapter);
         datePicker.addOnItemChangedListener(this);
         datePicker.addScrollStateChangeListener(this);
         datePicker.scrollToPosition(0);
-        datePicker.setItemTransitionTimeMillis(800);
+        datePicker.setItemTransitionTimeMillis(600);
         datePicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)
                 .build());
@@ -295,7 +299,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             forecasts = new ArrayList<>();
                             for(int i=0;i<temperatureList.size();i++){
                                 int avgTemperature = (int) temperatureList.get(i).getAvg();
-                                Forecast forecast = new Forecast(MoosApplication.mapLocation.getCity(),R.drawable.washington,String.valueOf(avgTemperature),skyconList.get(i).getValue(), skyconList.get(i).getValue());
+                                Forecast forecast = new Forecast(MoosApplication.mapLocation.getCity(),R.drawable.washington,String.valueOf(avgTemperature),getForecastWeather(skyconList.get(i).getValue()), skyconList.get(i).getValue());
                                 forecasts.add(forecast);
                             }
                             Log.e(TAG,"预报数量为=="+forecasts.size());
@@ -312,6 +316,16 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 });
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(getContext(),"This is "+position+"item",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
+    }
+
     static abstract class MyWeakReferenceHandler<T extends Activity> extends Handler {
         private WeakReference<T> weakReferenceActivity = null;
 
@@ -326,6 +340,39 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             // TODO Auto-generated method stub
             super.handleMessage(msg);
             handleMessage(msg, weakReferenceActivity.get());
+        }
+    }
+
+    /**
+     * by moos on 2018/01/06
+     * func:通过天气编码返回对应的天气数据
+     * @param weatherCode
+     * @return
+     */
+    private String getForecastWeather(String weatherCode){
+        switch (weatherCode){
+            case "CLEAR_DAY":
+                return "晴";
+            case "CLEAR_NIGHT":
+                return "晴";
+            case "PARTLY_CLOUDY_DAY":
+                return "多云";
+            case "PARTLY_CLOUDY_NIGHT":
+                return "多云";
+            case "CLOUDY":
+                return "阴天";
+            case "RAIN":
+                return "有雨";
+            case "SNOW":
+                return "有雪";
+            case "FOG":
+                return "有雾";
+            case "HAZE":
+                return "有霾";
+            case "SLEET":
+                return "冻雨";
+            default:
+                return "unknown weather";
         }
     }
 }

@@ -5,9 +5,8 @@ package com.moos.weather.bean.CaiYun;
 import java.util.Date;
 
 /**
- * Auto-generated: 2017-12-31 14:26:10
- * @author Moos
- * @website http://www.bejson.com/java2pojo/
+ * by moos on 2018/01/06
+ * func:云量
  */
 public class Cloudrate {
 
