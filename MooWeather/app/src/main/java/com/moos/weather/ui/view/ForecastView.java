@@ -343,7 +343,7 @@ public class ForecastView extends LinearLayout {
                 return R.mipmap.big_haze_weather;
 
             case JuHeWeatherKind.STRONG_SANDSTORM:    //强沙尘暴
-                return R.mipmap.partly_cloudy;
+                return R.mipmap.partly_cloudy_night;
 
             case JuHeWeatherKind.HAZE:                //霾.
                 return R.mipmap.haze_day;
@@ -367,13 +367,13 @@ public class ForecastView extends LinearLayout {
                 return colors(R.array.gradientSunnyDay);
 
             case "CLEAR_NIGHT":                      //晴天(night).
-                return colors(R.array.gradientSunnyDay);
+                return colors(R.array.gradientClear);
 
             case "PARTLY_CLOUDY_DAY":                //多云.
                 return colors(R.array.gradientPartlyCloudy);
 
             case "PARTLY_CLOUDY_NIGHT":              //多云(night).
-                return colors(R.array.gradientCloudy);
+                return colors(R.array.gradientPartlyCloudy);
 
             case "CLOUDY":                           //阴天
                 return colors(R.array.gradientCloudy);
@@ -416,13 +416,13 @@ public class ForecastView extends LinearLayout {
                 return R.mipmap.clear_day;
 
             case "CLEAR_NIGHT":            //晴天(NIGHT).
-                return R.mipmap.clear_day;
+                return R.mipmap.clear;
 
             case "PARTLY_CLOUDY_DAY":      //多云.
                 return R.mipmap.partly_cloudy;
 
             case "PARTLY_CLOUDY_NIGHT":    //多云(night).
-                return R.mipmap.partly_cloudy;
+                return R.mipmap.partly_cloudy_night;
 
             case "CLOUDY":                 //阴天.
                 return R.mipmap.cloudy_weather;

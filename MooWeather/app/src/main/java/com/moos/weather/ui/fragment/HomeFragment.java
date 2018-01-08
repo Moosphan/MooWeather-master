@@ -198,7 +198,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
      */
     private void initWeatherViews(){
         datePicker.setSlideOnFling(true);
-        adapter = new ForecastCardAdapter(caiYunWeatherBean);
+        adapter = new ForecastCardAdapter(getActivity(),caiYunWeatherBean);
         adapter.setOnBroadcastItemClickListener(this);
         datePicker.setAdapter(adapter);
         datePicker.addOnItemChangedListener(this);

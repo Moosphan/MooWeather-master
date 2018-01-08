@@ -1,6 +1,7 @@
 package com.moos.weather.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +19,9 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.moos.weather.R;
+import com.moos.weather.application.MoosApplication;
 import com.moos.weather.bean.CaiYun.JsonRootBean;
+import com.moos.weather.ui.activity.TodayWeatherDetailActivity;
 import com.moos.weather.util.TimeUtils;
 
 /**
@@ -28,8 +32,10 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
     private LayoutInflater layoutInflater;
     private JsonRootBean weatherBean;
     private RecyclerView parentRecycler;
-    public ForecastCardAdapter( JsonRootBean data){//构造方法
+    private Context context;
+    public ForecastCardAdapter(Context context, JsonRootBean data){//构造方法
 
+        this.context = context;
         this.weatherBean=data;
     }
 
@@ -67,9 +73,15 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
         String year = date.substring(0,4);
         String month = date.substring(5,7);
         String day = date.substring(8,10);
+        if(position == 0){
+            holder.textViewWeekDay.setText("今天");
+        }else if(position == 1){
+            holder.textViewWeekDay.setText("明天");
+        }else {
+            holder.textViewWeekDay.setText(TimeUtils.getChineseWeekDay(date));
+        }
         holder.textViewSunrise.setText(weatherBean.getResult().getDaily().getAstro().get(position).getSunrise().getTime());
         holder.textViewSunset.setText(weatherBean.getResult().getDaily().getAstro().get(position).getSunset().getTime());
-        holder.textViewWeekDay.setText(TimeUtils.getEnglishWeekDay(date));
         holder.textViewDate.setText(year+"年"+month+"月"+day+"日");
         if (myListener!=null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +106,23 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
                 Toast.makeText(view.getContext(),"Go for detail～",Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentRecycler.smoothScrollToPosition(position);
+                Toast.makeText(view.getContext(),"Go for detail～",Toast.LENGTH_SHORT).show();
+                if(position == 0){
+                    //今日天气详情
+                    Intent intent = new Intent(context, TodayWeatherDetailActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    //未来天气详情
+
+                }
+            }
+        });
+
 
 
     }

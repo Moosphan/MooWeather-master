@@ -61,7 +61,10 @@
             android:name=".ui.activity.ShoesLoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.WeatherDetailActivity" />
+        <activity
+            android:name=".ui.activity.TodayWeatherDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ForecastDetailActivity"
             android:launchMode="singleTop"
