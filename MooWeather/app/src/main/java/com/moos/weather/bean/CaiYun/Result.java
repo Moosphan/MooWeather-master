@@ -3,13 +3,15 @@
   */
 package com.moos.weather.bean.CaiYun;
 
+import java.io.Serializable;
+
 /**
  * Auto-generated: 2017-12-31 14:26:10
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class Result {
+public class Result implements Serializable {
 
     private Hourly hourly;
     private Realtime realtime;

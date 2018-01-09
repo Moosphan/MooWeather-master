@@ -19,10 +19,12 @@
             android:padding="6dp"
             style="@style/ClickableImageView"/>
         <com.moos.weather.ui.view.MyTextView
+            android:id="@+id/today_weather_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="2018年01月08日"
+            android:transitionName="shareView"
             android:textStyle="bold"
             android:textColor="#363636"
             android:textSize="18sp"/>

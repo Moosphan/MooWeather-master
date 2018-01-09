@@ -2,6 +2,7 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class Wind {
+public class Wind implements Serializable {
 
     private Date date;
     private Max max;

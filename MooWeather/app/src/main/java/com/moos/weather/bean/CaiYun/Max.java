@@ -3,13 +3,15 @@
   */
 package com.moos.weather.bean.CaiYun;
 
+import java.io.Serializable;
+
 /**
  * Auto-generated: 2017-12-31 14:26:10
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class Max {
+public class Max implements Serializable {
 
     private double direction;
     private double speed;

@@ -3,11 +3,13 @@
   */
 package com.moos.weather.bean.CaiYun;
 
+import java.io.Serializable;
+
 /**
  * by moos on 2018/01/06
  * func:未知
  */
-public class Avg {
+public class Avg implements Serializable {
 
     private double direction;
     private double speed;

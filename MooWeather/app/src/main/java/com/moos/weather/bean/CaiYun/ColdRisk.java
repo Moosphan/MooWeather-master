@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * by moos on 2018/01/06
  * func:寒冷指数
  */
-public class ColdRisk {
+public class ColdRisk implements Serializable {
 
     private String index;
     private String desc;

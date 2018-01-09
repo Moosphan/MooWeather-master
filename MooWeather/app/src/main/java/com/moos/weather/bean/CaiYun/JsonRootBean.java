@@ -2,6 +2,7 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class JsonRootBean {
+public class JsonRootBean implements Serializable{
 
     private String status;
     private String lang;

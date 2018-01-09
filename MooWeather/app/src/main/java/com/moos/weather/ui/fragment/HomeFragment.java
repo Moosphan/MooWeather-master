@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -132,12 +133,19 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         getWeatherByCaiYun(MoosApplication.mapLocation.getLongitude(),MoosApplication.mapLocation.getLatitude());
 
+//        refreshLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                refreshLayout.setRefreshing(true);
+//            }
+//        });
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
                 android.R.color.holo_red_light,
                 android.R.color.holo_red_light,
                 android.R.color.holo_red_light
         );
+
         //初始化测试
         //forecasts = WeatherExamples.get().getForecasts();
 
@@ -198,7 +206,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
      */
     private void initWeatherViews(){
         datePicker.setSlideOnFling(true);
-        adapter = new ForecastCardAdapter(getActivity(),caiYunWeatherBean);
+        adapter = new ForecastCardAdapter((AppCompatActivity) getActivity(),caiYunWeatherBean);
         adapter.setOnBroadcastItemClickListener(this);
         datePicker.setAdapter(adapter);
         datePicker.addOnItemChangedListener(this);

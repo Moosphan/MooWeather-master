@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * by moos on 2018/01/06
  * func:洗车指数
  */
-public class CarWashing {
+public class CarWashing implements Serializable {
 
     private String index;
     private String desc;

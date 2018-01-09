@@ -1,9 +1,13 @@
 package com.moos.weather.ui.adapter;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +25,7 @@ import com.bumptech.glide.request.target.Target;
 import com.moos.weather.R;
 import com.moos.weather.application.MoosApplication;
 import com.moos.weather.bean.CaiYun.JsonRootBean;
+import com.moos.weather.ui.activity.ForecastDetailActivity;
 import com.moos.weather.ui.activity.TodayWeatherDetailActivity;
 import com.moos.weather.util.TimeUtils;
 
@@ -33,9 +38,10 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
     private JsonRootBean weatherBean;
     private RecyclerView parentRecycler;
     private Context context;
-    public ForecastCardAdapter(Context context, JsonRootBean data){//构造方法
+    private AppCompatActivity appCompatActivity;
+    public ForecastCardAdapter(AppCompatActivity activity, JsonRootBean data){//构造方法
 
-        this.context = context;
+        this.appCompatActivity = activity;
         this.weatherBean=data;
     }
 
@@ -111,14 +117,22 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
             @Override
             public void onClick(View view) {
                 parentRecycler.smoothScrollToPosition(position);
-                Toast.makeText(view.getContext(),"Go for detail～",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(),"Go for detail～",Toast.LENGTH_SHORT).show();
                 if(position == 0){
                     //今日天气详情
-                    Intent intent = new Intent(context, TodayWeatherDetailActivity.class);
-                    context.startActivity(intent);
+                    Intent intent = new Intent(appCompatActivity, TodayWeatherDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("weatherData",weatherBean);
+                    intent.putExtras(bundle);
+                    appCompatActivity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(appCompatActivity, holder.textViewDate, "shareView").toBundle());
                 }else {
                     //未来天气详情
-
+                    Intent intent = new Intent(appCompatActivity, ForecastDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("goFutureDaysWeather","goFutureDaysWeather");
+                    bundle.putSerializable("futureDate",weatherBean.getResult().getDaily().getAstro().get(position));
+                    intent.putExtras(bundle);
+                    appCompatActivity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(appCompatActivity, holder.textViewDate, "shareView").toBundle());
                 }
             }
         });

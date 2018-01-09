@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * by moos on 2018/01/06
  * func:降水强度
  */
-public class Precipitation {
+public class Precipitation implements Serializable {
 
     private Date date;
     private int max;

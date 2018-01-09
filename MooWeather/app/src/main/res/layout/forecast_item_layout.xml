@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:transitionName="shareView"
                 android:text="2018年01月08日"
                 android:textColor="#454545"
                 android:textSize="14sp"/>

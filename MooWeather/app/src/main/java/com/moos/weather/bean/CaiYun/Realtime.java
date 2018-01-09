@@ -3,11 +3,13 @@
   */
 package com.moos.weather.bean.CaiYun;
 
+import java.io.Serializable;
+
 /**
  * by moos on 2018/01/06
  * func:实时播报
  */
-public class Realtime {
+public class Realtime implements Serializable {
 
     private String status;
     private int temperature;

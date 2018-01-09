@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * by moos on 2018/01/06
  * func:小时预报48
  */
-public class Hourly {
+public class Hourly implements Serializable {
 
     private String status;
     private String description;

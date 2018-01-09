@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * by moos on 2018/01/06
  * func:日落日出的时间
  */
-public class Astro {
+public class Astro implements Serializable {
 
     private String date;
     private Sunset sunset;

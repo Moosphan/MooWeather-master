@@ -2,13 +2,14 @@
   * Copyright 2017 bejson.com 
   */
 package com.moos.weather.bean.CaiYun;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * by moos on 2018/01/06
  * func:天气预报
  */
-public class Daily {
+public class Daily implements Serializable {
 
     private String status;
     private List<ColdRisk> coldRisk;
