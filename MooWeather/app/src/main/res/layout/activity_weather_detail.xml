@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.moos.weather.ui.activity.TodayWeatherDetailActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
+        android:src="@mipmap/weather_detail_bg"
+        android:scaleType="centerCrop"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="108dp">
@@ -29,5 +34,15 @@
             android:textColor="#363636"
             android:textSize="18sp"/>
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="22°"
+        android:textSize="150sp"
+        android:textColor="#007AFF"
+        android:layout_marginTop="220dp"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

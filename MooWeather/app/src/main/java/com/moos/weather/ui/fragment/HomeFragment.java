@@ -383,4 +383,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 return "unknown weather";
         }
     }
+
+    /**
+     * 实现城市查询的思路：
+     * 通过高德地图的快捷输入提示接口，获取经纬度，传入天气查询接口，然后获取数据
+     */
 }
