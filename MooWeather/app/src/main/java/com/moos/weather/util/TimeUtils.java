@@ -59,7 +59,7 @@ public class TimeUtils {
                 break;
 
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Illegal date format");
 
         }
         return weekTime;
@@ -106,7 +106,7 @@ public class TimeUtils {
                 return "Saturday";
 
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Illegal date format");
 
         }
 

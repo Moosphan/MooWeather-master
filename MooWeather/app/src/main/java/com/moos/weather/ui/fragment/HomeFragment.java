@@ -1,6 +1,7 @@
 package com.moos.weather.ui.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ import com.moos.weather.bean.CaiYun.Temperature;
 import com.moos.weather.bean.JuHe.JuHeWeatherKind;
 import com.moos.weather.bean.Model.Forecast;
 import com.moos.weather.bean.JuHe.JHCityWeatherBean;
+import com.moos.weather.ui.activity.SearchActivity;
 import com.moos.weather.ui.adapter.ForecastAdapter;
 import com.moos.weather.ui.adapter.ForecastCardAdapter;
 import com.moos.weather.ui.view.ForecastView;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import static com.moos.weather.application.MoosApplication.TAG;
@@ -76,6 +79,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     DiscreteScrollView datePicker;
     @Bind(R.id.fragment_home_forecast_view)
     ForecastView forecastView;
+    @Bind(R.id.fragment_home_search)
+    ImageView bt_search;
 
     @SuppressLint("HandlerLeak")
     private MyWeakReferenceHandler handler = new MyWeakReferenceHandler(getActivity()) {
@@ -150,6 +155,16 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         //forecasts = WeatherExamples.get().getForecasts();
 
         Toast.makeText(getContext(),"当前位置为："+ MoosApplication.mapLocation.getLongitude()+","+MoosApplication.mapLocation.getLatitude(),Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick({R.id.fragment_home_search})
+    public void doClick(View view){
+        switch (view.getId()){
+            case R.id.fragment_home_search:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
