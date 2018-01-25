@@ -27,7 +27,7 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultLi
     private int mLastAnimatedItemPosition = -1;
 
     public interface OnItemClickListener{
-        void onClick(Tip colorWrapper);
+        void onClick(View view,int position);
     }
 
     private OnItemClickListener mItemsOnClickListener;
@@ -64,7 +64,7 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultLi
     @Override
     public void onBindViewHolder(SearchResultListAdapter.ViewHolder holder, final int position) {
 
-        Tip tip = mDataSet.get(position);
+        final Tip tip = mDataSet.get(position);
         holder.cityName.setText(tip.getName());
         holder.cityDetail.setText(tip.getAddress());
 
@@ -77,7 +77,7 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultLi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemsOnClickListener.onClick(mDataSet.get(position));
+                    mItemsOnClickListener.onClick(v,position);
                 }
             });
         }

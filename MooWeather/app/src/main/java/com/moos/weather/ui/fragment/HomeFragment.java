@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.moos.weather.R;
@@ -68,6 +69,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<Skycon> skyconList;                         //预报五天的天气
     private final int INIT_WEATHER = 110;
     private ForecastCardAdapter adapter;
+    public static final int SEARCH_REQUEST_CODE = 222;
+    public static final int SEARCH_RESULT_CODE = 223;
+    private double search_lat = 0;
+    private double search_lon = 0;
+
 
     @Bind(R.id.fragment_home_refreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -81,6 +87,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     ForecastView forecastView;
     @Bind(R.id.fragment_home_search)
     ImageView bt_search;
+    @Bind(R.id.fragment_home_city)
+    TextView tv_city;
 
     @SuppressLint("HandlerLeak")
     private MyWeakReferenceHandler handler = new MyWeakReferenceHandler(getActivity()) {
@@ -136,6 +144,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initView(){
 
+        tv_city.setText(MoosApplication.mapLocation.getCity());
         getWeatherByCaiYun(MoosApplication.mapLocation.getLongitude(),MoosApplication.mapLocation.getLatitude());
 
 //        refreshLayout.post(new Runnable() {
@@ -162,7 +171,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         switch (view.getId()){
             case R.id.fragment_home_search:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,SEARCH_REQUEST_CODE);
                 break;
         }
     }
@@ -395,7 +404,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             case "SLEET":
                 return "冻雨";
             default:
-                return "unknown weather";
+                throw  new IllegalArgumentException("unknown weather");
         }
     }
 
@@ -403,4 +412,28 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
      * 实现城市查询的思路：
      * 通过高德地图的快捷输入提示接口，获取经纬度，传入天气查询接口，然后获取数据
      */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == SEARCH_RESULT_CODE){
+            if(data!=null){
+                search_lat = data.getDoubleExtra("search_location_lat",31.20353);
+                search_lon = data.getDoubleExtra("search_location_lon",121.602942);
+                String search_place = data.getStringExtra("search_location_address");
+                Log.e(TAG,"搜索返回的位置信息>>>>("+search_lat+","+search_lon+")");
+                tv_city.setText(search_place);
+                getWeatherByCaiYun(search_lon,search_lat);
+            }
+
+        }
+    }
+
+    /**
+     * by moos on 2018/01/25
+     * func:显示当前设置地点的天气情况（来自于彩云天气）
+     * @param tips 天气情况
+     */
+    private void showWeatherTips(String tips){
+
+    }
 }

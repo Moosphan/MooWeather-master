@@ -220,9 +220,10 @@
     </array>
 
     <array name="gradientSnowDay">
+        <item>@color/dodger_blue</item>
         <item>@color/gradientMostlyCloudy_c1</item>
         <item>@color/light_blue</item>
-        <item>@color/dodger_blue</item>
+
     </array>
 
     <array name="gradientMistDay">

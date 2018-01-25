@@ -6,8 +6,8 @@ android {
         applicationId "com.moos.weather"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 20171225
-        versionName "1.0"
+        versionCode 20180124
+        versionName "1.0.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

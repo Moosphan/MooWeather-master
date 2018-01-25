@@ -1,5 +1,6 @@
 package com.moos.weather.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,11 +26,14 @@ import com.moos.weather.R;
 import com.moos.weather.bean.Model.CitySearchSuggestion;
 import com.moos.weather.data.SearchDataHelper;
 import com.moos.weather.ui.adapter.SearchResultListAdapter;
+import com.moos.weather.ui.fragment.HomeFragment;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.moos.weather.application.MoosApplication.TAG;
 
 public class SearchActivity extends AppCompatActivity {
     /**
@@ -104,41 +108,48 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
+            public void run() {
+                mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+                    @Override
+                    public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
 
-                CitySearchSuggestion colorSuggestion = (CitySearchSuggestion) searchSuggestion;
-                SearchDataHelper.findColors(SearchActivity.this, colorSuggestion.getBody(),
-                        new SearchDataHelper.OnFindColorsListener() {
+                        CitySearchSuggestion colorSuggestion = (CitySearchSuggestion) searchSuggestion;
+                        SearchDataHelper.findColors(SearchActivity.this, colorSuggestion.getBody(),
+                                new SearchDataHelper.OnFindColorsListener() {
 
-                            @Override
-                            public void onResults(List<Tip> results) {
-                                mSearchResultsAdapter.swapData(results);
-                            }
+                                    @Override
+                                    public void onResults(List<Tip> results) {
+                                        mSearchResultsAdapter.swapData(results);
+                                    }
 
-                        });
-                Log.d(TAG, "onSuggestionClicked()");
+                                });
+                        Log.d(TAG, "onSuggestionClicked()");
 
-                mLastQuery = searchSuggestion.getBody();
-            }
+                        mLastQuery = searchSuggestion.getBody();
+                    }
 
-            @Override
-            public void onSearchAction(String query) {
-                mLastQuery = query;
+                    @Override
+                    public void onSearchAction(String query) {
+                        mLastQuery = query;
 
-                SearchDataHelper.findColors( SearchActivity.this,query,
-                        new SearchDataHelper.OnFindColorsListener() {
+                        SearchDataHelper.findColors( SearchActivity.this,query,
+                                new SearchDataHelper.OnFindColorsListener() {
 
-                            @Override
-                            public void onResults(List<Tip> results) {
-                                mSearchResultsAdapter.swapData(results);
-                            }
+                                    @Override
+                                    public void onResults(List<Tip> results) {
+                                        tips = results;
+                                        mSearchResultsAdapter.swapData(results);
+                                    }
 
-                        });
-                Log.d(TAG, "onSearchAction()");
+                                });
+                        Log.d(TAG, "onSearchAction()");
+                    }
+                });
             }
         });
+
 
         mSearchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
             @Override
@@ -271,28 +282,20 @@ public class SearchActivity extends AppCompatActivity {
         mSearchResultsAdapter = new SearchResultListAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mSearchResultsAdapter);
-    }
-
-    /**
-     * by moos on 2018/01/24
-     * func:通过高德输入提示接口获取提示数据（经纬度用于搜索城市天气）
-     * @param inputTips
-     */
-    private void getGaoDeSearchTips(final String inputTips){
-        InputtipsQuery inputtipsQuery = new InputtipsQuery(inputTips,"");
-        inputtipsQuery.setCityLimit(false);
-        Inputtips inputtips = new Inputtips(SearchActivity.this,inputtipsQuery);
-        inputtips.setInputtipsListener(new Inputtips.InputtipsListener() {
+        mSearchResultsAdapter.setItemsOnClickListener(new SearchResultListAdapter.OnItemClickListener() {
             @Override
-            public void onGetInputtips(List<Tip> list, int i) {
-                tips = list;
-                Log.e(TAG,"搜索到的结果数目="+tips.size());
-
-
+            public void onClick(View view,int position) {
+                Log.e(TAG,"搜索返回的位置信息数量>>>>"+tips.size());
+                Intent intent = new Intent();
+                intent.putExtra("search_location_lat",tips.get(position).getPoint().getLatitude());
+                intent.putExtra("search_location_lon",tips.get(position).getPoint().getLongitude());
+                intent.putExtra("search_location_address",tips.get(position).getName());
+                setResult(HomeFragment.SEARCH_RESULT_CODE,intent);
+                finish();
             }
         });
-        inputtips.requestInputtipsAsyn();
     }
+
 
 
     @Override

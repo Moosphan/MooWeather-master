@@ -6,6 +6,10 @@ You can contact me in the following ways:
    Email:moosphon@gmail.com
    QQ   :4674521
 ```
+# 更新日志
+
+- v-1.0.0:筛选天气API接口，实现了首页的天气数据展示，并通过天气状况和每日时间段展示对应的UI效果；
+- v-1.0.1.0:初步实现了地点搜索功能，增加独立搜索页面；
 
 # License
 ```

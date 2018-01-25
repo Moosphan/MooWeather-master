@@ -22,6 +22,7 @@ import static android.content.ContentValues.TAG;
 /**
  * created by https://github.com/arimorty/floatingsearchview
  * updated by moos on 2018/1/24.
+ * func:搜索结果的处理类
  */
 public class SearchDataHelper {
 
@@ -210,6 +211,15 @@ public class SearchDataHelper {
             }
         });
         inputtips.requestInputtipsAsyn();
+    }
+
+    /**
+     * by moos on 2018/01/24
+     * func:返回搜索结果
+     * @return
+     */
+    public static List<Tip> getSearchResult(){
+        return searchResult;
     }
 
 

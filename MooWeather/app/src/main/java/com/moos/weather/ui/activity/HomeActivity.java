@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         ft.commit();
 
         //设置底部导航
-        bottomBar.addItem(new BottomBarTab(this,R.mipmap.splash_logo_sun, MoosApplication.mapLocation.getCity()))
+        bottomBar.addItem(new BottomBarTab(this,R.mipmap.splash_logo_sun, "当前"))
                  .addItem(new BottomBarTab(this,R.mipmap.splash_logo_cloud,"其他"))
                  .addItem(new BottomBarTab(this,R.mipmap.home_icon_personal_center,"个人"));
         bottomBar.getItem(SECOND).setUnreadCount(99);
