@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
@@ -115,16 +116,40 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
 
-                        CitySearchSuggestion colorSuggestion = (CitySearchSuggestion) searchSuggestion;
-                        SearchDataHelper.findColors(SearchActivity.this, colorSuggestion.getBody(),
-                                new SearchDataHelper.OnFindColorsListener() {
+                        CitySearchSuggestion citySearchSuggestion = (CitySearchSuggestion) searchSuggestion;
+                        String suggestCity = citySearchSuggestion.getBody();
+                        Log.e(TAG, "onSuggestionClicked: "+suggestCity);
+                        LatLng latLng;
+                        switch (suggestCity){
+                            case "上海":
+                                latLng = new LatLng(31.203512,121.602938);
+                                break;
+                            case "北京":
+                                latLng = new LatLng(39.91667,116.41667);
+                                break;
+                            case "南京":
+                                latLng = new LatLng(32.05000,118.78333);
+                                break;
+                            case "西安":
+                                latLng = new LatLng(34.26667,108.95000);
+                                break;
+                            case "成都":
+                                latLng = new LatLng(30.66667,104.06667);
+                                break;
+                            case "厦门":
+                                latLng = new LatLng(24.46667,118.10000);
+                                break;
+                            default:
+                                throw new IllegalArgumentException("valid city for suggesting~");
 
-                                    @Override
-                                    public void onResults(List<Tip> results) {
-                                        mSearchResultsAdapter.swapData(results);
-                                    }
+                        }
 
-                                });
+                        Intent intent = new Intent();
+                        intent.putExtra("search_location_lat",latLng.latitude);
+                        intent.putExtra("search_location_lon",latLng.longitude);
+                        intent.putExtra("search_location_address",suggestCity);
+                        setResult(HomeFragment.SEARCH_RESULT_CODE,intent);
+                        finish();
                         Log.d(TAG, "onSuggestionClicked()");
 
                         mLastQuery = searchSuggestion.getBody();

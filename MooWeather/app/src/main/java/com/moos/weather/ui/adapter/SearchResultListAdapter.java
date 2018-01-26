@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by moos on 2018/1/24.
+ * func:搜索结果列表的适配器
  */
 
 public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultListAdapter.ViewHolder> {

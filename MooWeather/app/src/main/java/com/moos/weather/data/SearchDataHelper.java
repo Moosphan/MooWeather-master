@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Filter;
 
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
@@ -32,24 +33,13 @@ public class SearchDataHelper {
 
     private static List<CitySearchSuggestion> sColorSuggestions =
             new ArrayList<>(Arrays.asList(
-                    new CitySearchSuggestion("green"),
-                    new CitySearchSuggestion("blue"),
-                    new CitySearchSuggestion("pink"),
-                    new CitySearchSuggestion("purple"),
-                    new CitySearchSuggestion("brown"),
-                    new CitySearchSuggestion("gray"),
-                    new CitySearchSuggestion("Granny Smith Apple"),
-                    new CitySearchSuggestion("Indigo"),
-                    new CitySearchSuggestion("Periwinkle"),
-                    new CitySearchSuggestion("Mahogany"),
-                    new CitySearchSuggestion("Maize"),
-                    new CitySearchSuggestion("Mahogany"),
-                    new CitySearchSuggestion("Outer Space"),
-                    new CitySearchSuggestion("Melon"),
-                    new CitySearchSuggestion("Yellow"),
-                    new CitySearchSuggestion("Orange"),
-                    new CitySearchSuggestion("Red"),
-                    new CitySearchSuggestion("Orchid")));
+                    new CitySearchSuggestion("北京"),
+                    new CitySearchSuggestion("上海"),
+                    new CitySearchSuggestion("南京"),
+                    new CitySearchSuggestion("西安"),
+                    new CitySearchSuggestion("成都"),
+                    new CitySearchSuggestion("厦门")
+                    ));
 
     public interface OnFindColorsListener {
         void onResults(List<Tip> results);
