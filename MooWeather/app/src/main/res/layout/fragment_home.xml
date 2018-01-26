@@ -59,14 +59,14 @@
                     android:textStyle="bold"
                     android:text="上海"
                     android:padding="16dp"
-                    android:layout_margin="26dp"/>
+                    android:layout_margin="16dp"/>
                 <ImageView
                     android:id="@+id/fragment_home_search"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/search"
-                    android:layout_marginRight="36dp"
+                    android:layout_marginRight="20dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 

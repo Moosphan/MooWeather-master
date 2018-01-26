@@ -1,5 +1,6 @@
 package com.moos.weather.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.res.ResourcesCompat;
@@ -11,6 +12,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,6 +151,7 @@ public class SearchActivity extends AppCompatActivity {
                         intent.putExtra("search_location_lon",latLng.longitude);
                         intent.putExtra("search_location_address",suggestCity);
                         setResult(HomeFragment.SEARCH_RESULT_CODE,intent);
+                        hideSoftKeyboard();
                         finish();
                         Log.d(TAG, "onSuggestionClicked()");
 
@@ -316,12 +319,23 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("search_location_lon",tips.get(position).getPoint().getLongitude());
                 intent.putExtra("search_location_address",tips.get(position).getName());
                 setResult(HomeFragment.SEARCH_RESULT_CODE,intent);
+                hideSoftKeyboard();
                 finish();
             }
         });
     }
 
 
+    /**
+     * by moos on 2018/01/26
+     * func:隐藏当前页面的软键盘
+     */
+    private void hideSoftKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
 
     @Override
     protected void onDestroy() {

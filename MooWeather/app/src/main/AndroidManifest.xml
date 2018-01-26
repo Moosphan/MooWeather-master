@@ -56,7 +56,8 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/WithStatusTheme"/>
         <activity
             android:name=".ui.activity.ShoesLoginActivity"
             android:launchMode="singleTop"
