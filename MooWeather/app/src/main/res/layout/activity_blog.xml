@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.moos.weather.ui.activity.BlogActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="1dp"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/blog_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ClickableImageView"
+            android:src="@mipmap/ic_arrow_back_black_24dp"
+            android:padding="6dp"
+            android:layout_margin="6dp"/>
+        <TextView
+            android:id="@+id/blog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="我的创作" />
+    </android.support.v7.widget.Toolbar>
+    <ProgressBar
+        android:id="@+id/blog_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/progress_bar_drawable"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
+    <WebView
+        android:id="@+id/blog_webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

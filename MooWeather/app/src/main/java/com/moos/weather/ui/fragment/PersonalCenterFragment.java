@@ -1,5 +1,6 @@
 package com.moos.weather.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.moos.weather.R;
+import com.moos.weather.ui.activity.BlogActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by moos on 2017/12/24.
@@ -19,9 +23,10 @@ import butterknife.ButterKnife;
 
 public class PersonalCenterFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
-
     private int mParam1;
 
+    @Bind(R.id.self_center_blog_bt)
+    LinearLayout bt_scan_blog;
 
 
     public PersonalCenterFragment() {
@@ -66,5 +71,18 @@ public class PersonalCenterFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick({R.id.self_center_blog_bt})
+    public void doClick(View view){
+        switch (view.getId()){
+            case R.id.self_center_blog_bt:
+                /**
+                 * to blog page
+                 */
+                Intent intent = new Intent(getActivity(), BlogActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

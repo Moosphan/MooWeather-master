@@ -57,7 +57,7 @@
             android:name=".ui.activity.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/WithStatusTheme"/>
+            android:theme="@style/WithStatusTheme" />
         <activity
             android:name=".ui.activity.ShoesLoginActivity"
             android:launchMode="singleTop"
@@ -73,8 +73,13 @@
         <activity
             android:name=".ui.activity.SearchActivity"
             android:launchMode="singleTop"
-            android:theme="@style/BaseAppTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".ui.activity.BlogActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/WithStatusTheme" />
     </application>
 
 </manifest>
