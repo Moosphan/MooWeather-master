@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.moos.weather.R;
 import com.moos.weather.ui.activity.BlogActivity;
+import com.moos.weather.ui.activity.SettingActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public class PersonalCenterFragment extends Fragment {
 
     @Bind(R.id.self_center_blog_bt)
     LinearLayout bt_scan_blog;
+    @Bind(R.id.self_center_setting_bt)
+    LinearLayout bt_go_setting;
 
 
     public PersonalCenterFragment() {
@@ -73,7 +76,7 @@ public class PersonalCenterFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.self_center_blog_bt})
+    @OnClick({R.id.self_center_blog_bt, R.id.self_center_setting_bt})
     public void doClick(View view){
         switch (view.getId()){
             case R.id.self_center_blog_bt:
@@ -82,6 +85,14 @@ public class PersonalCenterFragment extends Fragment {
                  */
                 Intent intent = new Intent(getActivity(), BlogActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.self_center_setting_bt:
+                /**
+                 * to setting page
+                 */
+                Intent intent_Setting = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent_Setting);
                 break;
         }
     }

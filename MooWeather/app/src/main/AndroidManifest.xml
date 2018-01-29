@@ -80,6 +80,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/WithStatusTheme" />
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/WithStatusTheme" />
     </application>
 
 </manifest>

@@ -277,4 +277,12 @@
         <item>#ecc579</item>
         <item>@color/floral_white</item>
     </array>
+
+
+    <!--常用文字颜色-->
+    <color name="title_text_color">#242424</color>
+    <color name="menu_title_text_color">#303030</color>
+    <color name="menu_items_text_color">#565656</color>
+    <color name="menu_item_tip_text_color">#9a9a9a</color>
+    <color name="line_divider_d8">#d8d8d8</color>
 </resources>
