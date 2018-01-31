@@ -6,11 +6,36 @@
     android:layout_height="match_parent"
     tools:context="com.moos.weather.ui.activity.TodayWeatherDetailActivity">
 
-    <ImageView
+    <LinearLayout
+        android:id="@+id/today_weather_above_view"
         android:layout_width="match_parent"
         android:layout_height="318dp"
-        android:src="@mipmap/weather_detail_bg"
-        android:scaleType="centerCrop"/>
+        android:background="@mipmap/weather_detail_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="多云"
+            android:textSize="48sp"
+            android:textColor="#007AFF"
+            android:layout_centerHorizontal="true"/>
+        <View
+            android:layout_width="4dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#337aee"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="22°"
+            android:textSize="64sp"
+            android:textColor="#007AFF"
+            android:layout_centerHorizontal="true"/>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="108dp">
@@ -35,14 +60,22 @@
             android:textSize="18sp"/>
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="22°"
-        android:textSize="150sp"
-        android:textColor="#007AFF"
-        android:layout_marginTop="220dp"
-        android:layout_centerHorizontal="true"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/today_weather_above_view">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/today_weather_chart_hours"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

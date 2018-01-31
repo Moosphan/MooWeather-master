@@ -91,4 +91,25 @@ public class Hourly implements Serializable {
          return temperature;
      }
 
+     public static class Temperature implements Serializable{
+        private String datetime;
+        private float value;
+
+         public String getDatetime() {
+             return datetime;
+         }
+
+         public void setDatetime(String datetime) {
+             this.datetime = datetime;
+         }
+
+         public float getValue() {
+             return value;
+         }
+
+         public void setValue(float value) {
+             this.value = value;
+         }
+     }
+
 }
