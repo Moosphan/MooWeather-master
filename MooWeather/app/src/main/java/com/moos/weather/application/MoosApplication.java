@@ -41,31 +41,19 @@ public class MoosApplication extends Application {
 
     //声明AMapLocationClient对象
     static AMapLocationClient aMapLocationClient;
-    public static int towhich = 0;
-
     //定位参数
     AMapLocationClientOption mapLocationClientOption;
     //定位信息
     public static AMapLocation mapLocation;
-    //各种定位信息
     private IntentFilter intentFilter;
-    //private NetworkChangeReceiver networkChangeReceiver;
     private static Context context;
 
-
-//    {
-//        PlatformConfig.setWeixin("wx6a91b4678e786345", "2d3ea5023cd9746ae5daec021a09f48b");
-//        PlatformConfig.setQQZone("1106281483", "QgcpZixmyfAIM1L8");
-//        PlatformConfig.setSinaWeibo(SinaConstants.APP_KEY, SinaConstants.SECRET, SinaConstants.REDIRECT_URL);
-//    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
         startedApp = true;
-        //初始化活动的集合
-        //记录更新提示弹窗次数
         count = 0;
         languageCode = Locale.getDefault().getDisplayLanguage();
         if (languageCode.equals("中文")) {
@@ -152,19 +140,14 @@ public class MoosApplication extends Application {
 
         aMapLocationClient = new AMapLocationClient(getApplicationContext());
         mapLocationClientOption = new AMapLocationClientOption();
-        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mapLocationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mapLocationClientOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-        mapLocationClientOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        mapLocationClientOption.setInterval(20000);//可选，设置定位间隔。默认为2秒
-        mapLocationClientOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是ture
-        mapLocationClientOption.setOnceLocation(true);//获取一次定位结果：该方法默认为false。
-        //可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        mapLocationClientOption.setGpsFirst(false);
+        mapLocationClientOption.setHttpTimeOut(30000);
+        mapLocationClientOption.setInterval(20000);
+        mapLocationClientOption.setNeedAddress(true);
+        mapLocationClientOption.setOnceLocation(true);
         mapLocationClientOption.setOnceLocationLatest(true);
-        //可选 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
-        //注意：https方式请求定位对定位速度和性能有一定的损耗，定位流量会增大，但安全性更高。
         AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);
-        //给定位客户端对象设置定位参数
         aMapLocationClient.setLocationOption(mapLocationClientOption);
         startLocate();
         setListener();
@@ -186,50 +169,40 @@ public class MoosApplication extends Application {
             public void onLocationChanged(AMapLocation aMapLocation) {
 
                 if (aMapLocation != null) {
-
-                    //当定位错误码类型为0时定位成功
                     if (aMapLocation.getErrorCode() == 0) {
-                        //可在其中解析amapLocation获取相应内容。
-                        aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                        aMapLocation.getLatitude();//获取纬度
-                        aMapLocation.getLongitude();//获取经度
-                        aMapLocation.getAccuracy();//获取精度信息
-                        //地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                        aMapLocation.getLocationType();
+                        aMapLocation.getLatitude();
+                        aMapLocation.getLongitude();
+                        aMapLocation.getAccuracy();
                         aMapLocation.getAddress();
-                        aMapLocation.getCountry();//国家信息
-                        aMapLocation.getProvince();//省信息
-                        String city = aMapLocation.getCity();//城市信息
-                        String district = aMapLocation.getDistrict();//城区信息
-                        String street = aMapLocation.getStreet();//街道信息
-                        aMapLocation.getStreetNum();//街道门牌号信息
-                        aMapLocation.getCityCode();//城市编码
-                        aMapLocation.getAdCode();//地区编码
-                        aMapLocation.getAoiName();//获取当前定位点的AOI信息
-                        //获取定位时间
+                        aMapLocation.getCountry();
+                        aMapLocation.getProvince();
+                        String city = aMapLocation.getCity();
+                        String district = aMapLocation.getDistrict();
+                        String street = aMapLocation.getStreet();
+                        aMapLocation.getStreetNum();
+                        aMapLocation.getCityCode();
+                        aMapLocation.getAdCode();
+                        aMapLocation.getAoiName();
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(aMapLocation.getTime());
                         df.format(date);
                         MoosApplication.mapLocation = aMapLocation;
                         Log.e(TAG, "定位坐标1是==" + MoosApplication.mapLocation.getLatitude() + "," + aMapLocation.getLongitude());
-//                        mapLocation = new LatLng(aMapLocation.getLatitude(),aMapLocation.getLongitude());
                         double latitude = aMapLocation.getLatitude();
                         double longtgitude = aMapLocation.getLongitude();
                         if (mapLocation == null) {
                             mapLocation = aMapLocation;
                         }
-                        //EventBus.getDefault().post(mapLocation);
                         Log.e(TAG, "定位坐标是==" + aMapLocation.getLatitude() + "," + aMapLocation.getLongitude());
                         Log.e(TAG, "Application保存的定位坐标是==" + mapLocation.getLatitude() + "," + mapLocation.getLongitude());
                         Log.e(TAG, "定位城市是==" + city + district + street);
 
                     } else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                         Log.e("AmapError", "location Error, ErrCode:"
                                 + aMapLocation.getErrorCode() + ", errInfo:"
                                 + aMapLocation.getErrorInfo());
                     }
-
-//                    aMapLocationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
                 }
             }
         });
