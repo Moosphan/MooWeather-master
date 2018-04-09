@@ -1,7 +1,7 @@
 # MooWeather-master
 This is a app about weather,and is designed to be simple and beautiful.
 
-![image_weather](https://github.com/Moosphan/MooWeather-master/art/weather_home.jpg)
+![image_weather](https://github.com/Moosphan/MooWeather-master/blob/99944d823143e1a5b20c4908987eeaa5dcbddb18/MooWeather/art/weather_home.jpg)
 
 ## Description
 本项目暂时停止更新，项目架构后续改为mvp，通过rxjava与retrofit进行网络请求数据，增加桌面插件等功能，同时努力基于material design风格来设计，让用户更加专心关注天气信息。
